@@ -1,0 +1,54 @@
+def fun(email):
+    
+    e = [i for i in email]
+    if '@' in e:
+        index_at = e.index('@')
+        str_aftr_at = e[index_at:]
+        if '.' in str_aftr_at:
+            if e[0].isalpha():
+                con = e[:index_at]
+                not_sp_chr = len([i for i in con if i.isalnum()])
+                if not_sp_chr != len(con):
+                    # checking for digit
+                    if len([i for i in con if i.isdigit()]) > 0:
+                        # checking for lower case
+                        if len([i for i in con if i.islower()]) > 0:
+                            if len([i for i in con if i.isupper()]) > 0:
+                                return 'Yes'
+                            
+    return 'No'
+
+store = {}
+
+choice = input('Choose Login, Registration or forget password')
+
+
+
+if choice == 'Login':
+    email_id = input('Please enter your email ID: ')
+    if email_id in store:
+        pasw = input('Enter your password: ')
+        if pasw == store[email_id]:
+            print('You are Logged in!')
+        else:
+            print('Wrong Password!')
+    else:
+        print('Please choose for Registration!')
+        
+elif choice == 'Registration':
+    email_id = input('Please enter your email ID: ')
+    ans = fun(email_id)
+    if ans == 'Yes':
+        p = input('Please input your password: ')
+        store[email_id] = p
+        print('You are logged in!')
+    else:
+        print('This email ID is not inline with our guidelines.')
+
+elif choice == 'forget password':
+    email_id = input('Please enter your email ID: ')
+    if email_id in store:
+        print('Your password is: ', store[email_id])
+    print('You are logged in!')
+else:
+    print('Choose Login, Registration or forget password')
